@@ -1,5 +1,5 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 import constraintElements.*;
 
@@ -35,7 +35,7 @@ public class App {
         PrimitiveConstraint pc3 = new EqualityPredicate(e3, e4);
 
 
-        Deque<PrimitiveConstraint> conjunction = new ArrayDeque<PrimitiveConstraint>();
+        List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
         conjunction.add(pc3);
         conjunction.add(pc2);
         Conjunction c = new Conjunction(conjunction);

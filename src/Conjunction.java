@@ -1,6 +1,3 @@
-import java.util.stream.Collectors;
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,21 +13,25 @@ public class Conjunction {
     }
 
     public boolean unif(){
-        while (!conjunction.isEmpty()) {
-            PrimitiveConstraint primitiveConstraint = conjunction.pollFirst();
+        for(int i = 0; i < conjunction.size(); i++){
+            PrimitiveConstraint primitiveConstraint = conjunction.removeFirst();
             if(delEqCond(primitiveConstraint)){
+                i = 0;
                 continue;
             }
             if(decEqCond(primitiveConstraint)){
                 decEqOp((FunctionApplication) primitiveConstraint.el1, (FunctionApplication) primitiveConstraint.el2);
+                i = 0;
                 continue;
             }
             if(oriEqCond(primitiveConstraint)){
                 oriEqOp(primitiveConstraint);
+                i = 0;
                 continue;
             }
             if(elimEqCond(primitiveConstraint)){
                 elimEqOp(primitiveConstraint);
+                i = 0;
                 continue;
             }
             if(conflEqCond(primitiveConstraint) || mismEqCond(primitiveConstraint) || occEqCond(primitiveConstraint)){
@@ -38,7 +39,6 @@ public class Conjunction {
                 return false;
             }
             conjunction.addLast(primitiveConstraint);
-            return true;
         }
         return false;
     }
@@ -60,9 +60,9 @@ public class Conjunction {
 
     public void decEqOp(FunctionApplication f1, FunctionApplication f2){
         for(int i = f1.args.length - 1; i >= 0; i--){
-            conjunction.addFirst(new EqualityPredicate(f1.args[i], f2.args[i]));
+            conjunction.add(new EqualityPredicate(f1.args[i], f2.args[i]));
         }
-        conjunction.addFirst(new EqualityPredicate(f1.functionSymbol, f2.functionSymbol));
+        conjunction.add(new EqualityPredicate(f1.functionSymbol, f2.functionSymbol));
     }
 
 
@@ -72,7 +72,7 @@ public class Conjunction {
     }
 
     public void oriEqOp(PrimitiveConstraint primitiveConstraint){
-        conjunction.addFirst(new EqualityPredicate(primitiveConstraint.el2, primitiveConstraint.el1));
+        conjunction.add(new EqualityPredicate(primitiveConstraint.el2, primitiveConstraint.el1));
     }
 
     public boolean elimEqCond(PrimitiveConstraint primitiveConstraint){
@@ -90,16 +90,18 @@ public class Conjunction {
 
     public void elimEqOp(PrimitiveConstraint primitiveConstraint){
         
-        conjunction = conjunction.stream()
-                    .map(x -> 
-                    {return new PrimitiveConstraint(
-                            x.el1.map(primitiveConstraint.el1.getName(),primitiveConstraint.el2),
-                            x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2)
-                         );}
-                    )
-                    .collect(Collectors.toCollection(ArrayDeque::new));
-        
-
+        // conjunction = conjunction.stream()
+        //             .map(x -> 
+        //             {return new PrimitiveConstraint(
+        //                     x.el1.map(primitiveConstraint.el1.getName(),primitiveConstraint.el2),
+        //                     x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2)
+        //                  );}
+        //             )
+        //             .collect(Collectors.toCollection(ArrayList::new));
+        conjunction.replaceAll(x -> new PrimitiveConstraint(
+            x.el1.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),
+            x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2)
+        ));
         conjunction.addLast(primitiveConstraint);
     }
 
