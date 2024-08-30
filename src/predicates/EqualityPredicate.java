@@ -1,8 +1,10 @@
+package predicates;
+
 import constraintElements.*;
 
 public class EqualityPredicate extends PrimitiveConstraint{
 
-    EqualityPredicate(Element el1, Element el2){
+    public EqualityPredicate(Element el1, Element el2){
         super(el1, el2);
     }
 

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import constraintElements.*;
+import predicates.EqualityPredicate;
+import predicates.PrimitiveConstraint;
 
 public class App {
     public static void main(String[] args) throws Exception {

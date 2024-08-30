@@ -1,3 +1,4 @@
+package relations;
 import constraintElements.Element;
 import java.util.Objects;
 

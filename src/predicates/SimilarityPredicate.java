@@ -1,11 +1,13 @@
+package predicates;
+
 import constraintElements.*;
 
 public class SimilarityPredicate extends PrimitiveConstraint{
 
-    int RelationId;
-    float CutValue;
+    public int RelationId;
+    public float CutValue;
 
-    SimilarityPredicate(Element el1, Element el2, int RelationId, float CutValue){
+    public SimilarityPredicate(Element el1, Element el2, int RelationId, float CutValue){
         super(el1, el2);
         this.RelationId = RelationId;
         this.CutValue = CutValue;

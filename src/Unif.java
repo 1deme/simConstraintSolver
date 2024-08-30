@@ -1,4 +1,7 @@
 import constraintElements.FunctionApplication;
+import predicates.EqualityPredicate;
+import predicates.PrimitiveConstraint;
+
 import java.util.List;
 
 public class Unif {
@@ -90,7 +93,7 @@ public class Unif {
     }
 
     public static boolean conflEqCond(PrimitiveConstraint primitiveConstraint){
-        return primitiveConstraint.el1.getType() == "Fc" && primitiveConstraint.el2.getType() == "Fc";
+        return primitiveConstraint.el1.getType() == "Fc" && primitiveConstraint.el2.getType() == "Fc" && primitiveConstraint.el1 != primitiveConstraint.el2;
     }
 
     public static boolean mismEqCond(PrimitiveConstraint primitiveConstraint){

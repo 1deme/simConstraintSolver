@@ -1,4 +1,6 @@
+package relations;
 import constraintElements.Element;
+
 import java.util.Map;
 import java.util.HashMap;
 
