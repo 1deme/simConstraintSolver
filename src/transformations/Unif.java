@@ -2,6 +2,7 @@ package transformations;
 import constraintElements.FunctionApplication;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
+import predicates.SimilarityPredicate;
 
 import java.util.List;
 
@@ -86,10 +87,19 @@ public class Unif {
     }
 
     public static void elimEqOp(PrimitiveConstraint primitiveConstraint, List<PrimitiveConstraint> conjunction){
-        conjunction.replaceAll(x -> new PrimitiveConstraint(
-            x.el1.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),
-            x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2)
-        ));
+        conjunction.replaceAll(x -> {
+            if(x instanceof EqualityPredicate)
+                return new EqualityPredicate(
+                    x.el1.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),
+                    x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2)
+                );
+            else{
+                return new SimilarityPredicate(
+                    x.el1.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),
+                    x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
+
+            }
+        });
         conjunction.addLast(primitiveConstraint);
     }
 

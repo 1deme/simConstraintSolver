@@ -4,6 +4,7 @@ import constraintElements.*;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
 import dnf.*;
+import transformations.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -44,7 +45,6 @@ public class App {
         System.out.println(c.toString());
         c.unif();
         System.out.println(c.toString());
-
 
     }
 }
