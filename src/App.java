@@ -4,6 +4,7 @@ import java.util.List;
 import constraintElements.*;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
+import dnf.*;
 
 public class App {
     public static void main(String[] args) throws Exception {

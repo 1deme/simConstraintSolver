@@ -1,3 +1,4 @@
+package transformations;
 import constraintElements.FunctionApplication;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
