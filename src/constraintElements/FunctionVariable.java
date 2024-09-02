@@ -6,13 +6,6 @@ public class FunctionVariable extends FunctionSymbol {
         super(name);
     }
 
-    public Element map(char from, Element to){
-        if(this.name == from){
-            return to;
-        }
-        return this;
-    }
-
     @Override
     public String getType() {
         return "Fv";

@@ -17,13 +17,7 @@ public class FunctionApplication implements Term{
         FunctionSymbol newFunctionSymbol = (FunctionSymbol) functionSymbol.map(from, to);
         Term[] newArgs = new Term[args.length];
         for(int i = 0; i < args.length; i++){
-            if(args[i] instanceof TermVariable){
-                newArgs[i] = (Term) ((TermVariable) args[i]).map(from, to);
-            }
-            else{
-                newArgs[i] = (Term) ((FunctionApplication) args[i]).map(from, to);
-            }
-            
+            newArgs[i] = (Term) args[i].map(from, to);            
         }
         return new FunctionApplication(newFunctionSymbol, newArgs);
     }
