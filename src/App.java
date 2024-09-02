@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-
 import constraintElements.*;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
@@ -45,6 +44,7 @@ public class App {
         System.out.println(c.toString());
         c.unif();
         System.out.println(c.toString());
+
 
     }
 }

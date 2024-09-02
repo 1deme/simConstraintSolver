@@ -1,9 +1,7 @@
 package transformations;
 import predicates.PrimitiveConstraint;
 import predicates.SimilarityPredicate;
-
 import java.util.List;
-
 import constraintElements.*;
 import dnf.*;
 
