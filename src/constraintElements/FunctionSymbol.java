@@ -1,7 +1,5 @@
 package constraintElements;
 
-import relations.relationCollection;
-
 public class FunctionSymbol implements Element{
     char name;
 

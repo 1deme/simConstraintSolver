@@ -4,16 +4,15 @@ import constraintElements.*;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
 import dnf.*;
-import transformations.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        FunctionVariable fVarf = new FunctionVariable('F');
+        //FunctionVariable fVarf = new FunctionVariable('F');
         FunctionVariable fVarg = new FunctionVariable('G');
         //FunctionVariable fVarh = new FunctionVariable('H');
 
-        FunctionConstant fConstf = new FunctionConstant('f');
+        //FunctionConstant fConstf = new FunctionConstant('f');
         FunctionConstant fConstg = new FunctionConstant('g');
         FunctionConstant fConsth = new FunctionConstant('h');
 
@@ -24,7 +23,7 @@ public class App {
 
         FunctionApplication fa0 = new FunctionApplication(fVarg,  new Term[]{tVarZ});
 
-        FunctionApplication fa1 = new FunctionApplication(fVarf,  new Term[]{tVarX});
+        //FunctionApplication fa1 = new FunctionApplication(fVarf,  new Term[]{tVarX});
         //FunctionApplication fa2 = new FunctionApplication(fVarg, new Term[]{fa0});
         FunctionApplication fa3 = new FunctionApplication(fConstg, new Term[]{ tVarZ});
 
@@ -43,7 +42,7 @@ public class App {
         conjunction.add(pc2);
         Conjunction c = new Conjunction(conjunction);
         System.out.println(c.toString());
-        c.unif();
+        //c.unif();
         System.out.println(c.toString());
 
     }
