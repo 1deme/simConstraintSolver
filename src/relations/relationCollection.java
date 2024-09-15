@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class relationCollection {
 
-    private Map<Relation, Float> collection;
+    public Map<Relation, Float> collection;
 
     public relationCollection() {
         collection = new HashMap<>();

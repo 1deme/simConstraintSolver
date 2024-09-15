@@ -12,6 +12,11 @@ public class EqualityPredicate extends PrimitiveConstraint{
         return new EqualityPredicate(el1.map(from, to), el2.map(from, to));
     }
 
+    @Override
+    public EqualityPredicate createCopy(){
+        return new EqualityPredicate(el1.createCopy(), el2.createCopy());
+    }
+
 
     
 }

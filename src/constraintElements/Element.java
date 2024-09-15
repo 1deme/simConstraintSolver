@@ -6,4 +6,5 @@ public interface Element {
     public String getType();
     public boolean contains(Element el);
     public char getName();
+    public Element createCopy();
 }

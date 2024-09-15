@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class Relation {
 
-    Element el1;
-    Element el2;
-    int relId;
-    float value;
+    public Element el1;
+    public Element el2;
+    public int relId;
+    public float value;
 
     public Relation(Element el1, Element el2, int relId, float value) {
         this.el1 = el1;

@@ -15,4 +15,9 @@ public class PrimitiveConstraint {
         return el1.toString() + " = " + el2.toString();
     }
 
+    public PrimitiveConstraint createCopy(){
+        return null;
+    }
+
+
 }

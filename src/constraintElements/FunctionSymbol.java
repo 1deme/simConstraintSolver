@@ -1,5 +1,7 @@
 package constraintElements;
 
+import relations.relationCollection;
+
 public class FunctionSymbol implements Element{
     char name;
 
@@ -32,6 +34,11 @@ public class FunctionSymbol implements Element{
     @Override
     public char getName() {
         return name;
+    }
+
+    @Override
+    public FunctionSymbol createCopy(){
+        return new FunctionSymbol(name);
     }
 
 

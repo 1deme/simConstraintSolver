@@ -51,5 +51,14 @@ public class FunctionApplication implements Term{
         throw new UnsupportedOperationException("Unimplemented method 'contains'");
     }
 
+    @Override
+    public FunctionApplication createCopy() {
+        Term[] copy = new Term[args.length];
+        for(int i = 0; i < args.length; i++){
+            copy[i] = (Term) args[i].createCopy();
+        }
+        return new FunctionApplication(functionSymbol.createCopy(), copy);
+    }
+
     
 }

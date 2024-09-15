@@ -34,5 +34,10 @@ public class TermVariable implements Term {
     public char getName() {
         return name;
     }
+
+    @Override
+    public Element createCopy() {
+        return new TermVariable(name);
+    }
     
 }
