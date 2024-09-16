@@ -7,4 +7,5 @@ public interface Element {
     public boolean contains(Element el);
     public char getName();
     public Element createCopy();
+    default boolean isVariable(){return false;}
 }

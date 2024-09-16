@@ -15,5 +15,9 @@ public class Disjunction {
         disjunction.add(new Conjunction(pc));
     }
 
+    public boolean apprSolvedForm(){
+        return disjunction.stream().allMatch(x -> x.apprSolvedForm());
+    }
+
     
 }

@@ -39,5 +39,8 @@ public class TermVariable implements Term {
     public Element createCopy() {
         return new TermVariable(name);
     }
+
+    @Override
+    public boolean isVariable(){return true;}
     
 }

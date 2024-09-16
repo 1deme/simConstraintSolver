@@ -15,5 +15,8 @@ public class FunctionVariable extends FunctionSymbol {
     public boolean contains(Element el) {
         return el == this;
     }
+
+    @Override
+    public boolean isVariable(){return true;}
     
 }
