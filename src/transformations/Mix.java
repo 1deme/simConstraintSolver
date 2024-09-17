@@ -20,7 +20,9 @@ import utils.*;
 
 public class Mix {
 
-    public static boolean mix(Disjunction disjunction, List<PrimitiveConstraint> conjunction, relationCollection relationCollection){
+    static relationCollection relationCollection;
+
+    public static boolean mix(Disjunction disjunction, List<PrimitiveConstraint> conjunction){
         if(conjunction.getFirst() instanceof SimilarityPredicate){
             SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.removeFirst();
 

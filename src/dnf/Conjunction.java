@@ -15,6 +15,14 @@ public class Conjunction {
         this.conjunction = conjunction;
     }
 
+    public boolean Sim(){
+        return transformations.Sim.sim(conjunction);
+    }
+
+    public boolean Unif(){
+        return transformations.Unif.unif(conjunction);
+    }
+
     public boolean apprSolvedForm(){
 
         for(int i = 0; i < conjunction.size(); i++){
