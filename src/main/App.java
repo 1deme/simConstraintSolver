@@ -42,7 +42,7 @@ public class App {
         conjunction.add(pc2);
         Conjunction c = new Conjunction(conjunction);
         System.out.println(c.toString());
-        //c.unif();
+        c.Unif();
         System.out.println(c.toString());
 
     }

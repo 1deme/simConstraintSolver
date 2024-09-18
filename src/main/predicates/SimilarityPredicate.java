@@ -21,5 +21,10 @@ public class SimilarityPredicate extends PrimitiveConstraint{
     public SimilarityPredicate createCopy(){
         return new SimilarityPredicate(el1.createCopy(), el2.createCopy(), RelationId, CutValue);
     }
+
+    @Override
+    public String toString(){
+        return el1.toString() + " ~= " + el2.toString();
+    }
     
 }
