@@ -57,5 +57,17 @@ public class Disjunction {
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < disjunction.size(); i++) {
+            sb.append(disjunction.get(i));
+            if (i < disjunction.size() - 1) {
+                sb.append(" ∨ "); 
+            }
+        }
+        return sb.toString();
+    }
+
     
 }

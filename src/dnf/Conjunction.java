@@ -56,4 +56,16 @@ public class Conjunction {
         return true;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < conjunction.size(); i++) {
+            sb.append(conjunction.get(i));
+            if (i < conjunction.size() - 1) {
+                sb.append(" ∧ "); 
+            }
+        }
+        return sb.toString();
+    }
+
 }
