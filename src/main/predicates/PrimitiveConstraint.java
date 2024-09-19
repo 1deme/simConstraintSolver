@@ -19,5 +19,14 @@ public class PrimitiveConstraint {
         return null;
     }
 
+    public PrimitiveConstraint setEl1(Element element){
+        el1 = element;
+        return this;
+    }
+
+    public PrimitiveConstraint setEl2(Element element){
+        el2 = element;
+        return this;
+    }
 
 }

@@ -13,8 +13,18 @@ public class SimilarityPredicate extends PrimitiveConstraint{
         this.CutValue = CutValue;
     }
 
+    public PrimitiveConstraint setRelationId(int relationId){
+        this.RelationId = relationId;
+        return this;
+    }
+
+    public PrimitiveConstraint setCutValue(float CutValue){
+        this.CutValue = CutValue;
+        return this;
+    }
+
     public PrimitiveConstraint map(char from, Element to) {
-        return new SimilarityPredicate(el1.map(from, to), el2.map(from, to), RelationId, CutValue);
+        return setEl1(el1.map(from, to)).setEl2(el2.map(from, to));
     }
 
     @Override
@@ -26,5 +36,7 @@ public class SimilarityPredicate extends PrimitiveConstraint{
     public String toString(){
         return el1.toString() + " ~= " + el2.toString();
     }
+
+    
     
 }
