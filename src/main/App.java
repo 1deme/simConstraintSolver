@@ -3,6 +3,7 @@ import java.util.List;
 import constraintElements.*;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
+import predicates.SimilarityPredicate;
 import dnf.*;
 
 public class App {
@@ -35,6 +36,13 @@ public class App {
         //PrimitiveConstraint pc1 = new EqualityPredicate(fVarf, fa1);
         PrimitiveConstraint pc2 = new EqualityPredicate(e1, e2);
         PrimitiveConstraint pc3 = new EqualityPredicate(e3, e4);
+
+        // FunctionApplication fx = new FunctionApplication(f, new Term[]{x});
+        // FunctionApplication Fx = new FunctionApplication(F, new Term[]{y, z});
+        // Term[] args = new Term[]{Fx, fx};
+        // FunctionApplication gfxFx = new FunctionApplication(g, args);
+
+        // predicate = new SimilarityPredicate(gfxFx, Fx, 1, 0.75f);
 
 
         List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();

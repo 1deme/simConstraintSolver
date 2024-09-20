@@ -1,10 +1,9 @@
 package test;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,16 +11,16 @@ import org.junit.jupiter.api.Test;
 import constraintElements.Element;
 import constraintElements.FunctionApplication;
 import constraintElements.FunctionConstant;
-import constraintElements.FunctionSymbol;
 import constraintElements.FunctionVariable;
 import constraintElements.Term;
 import constraintElements.TermVariable;
+import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
 import predicates.SimilarityPredicate;
 
-public class SimilarityPredicateTest {
+public class EqualityPredicateTest {
     
-    private SimilarityPredicate predicate;
+    private EqualityPredicate predicate;
 
     @BeforeEach
     void setUp() {
@@ -40,7 +39,7 @@ public class SimilarityPredicateTest {
         Term[] args = new Term[]{Fx, fx};
         FunctionApplication gfxFx = new FunctionApplication(g, args);
 
-        predicate = new SimilarityPredicate(gfxFx, Fx, 1, 0.75f);
+        predicate = new EqualityPredicate(gfxFx, Fx);
 
         System.out.println(predicate.toString());
 
@@ -48,7 +47,7 @@ public class SimilarityPredicateTest {
     @Test
     void testCreateCopy() {
 
-        SimilarityPredicate copy = predicate.createCopy();
+        EqualityPredicate copy = predicate.createCopy();
 
         assertNotSame(predicate, copy);
         assertNotEquals(copy, predicate);
@@ -75,7 +74,7 @@ public class SimilarityPredicateTest {
         char from = 'F';
         FunctionConstant to = new FunctionConstant('f');
         
-        String s = "g(f(Y, Z), f(X)) ~= 1, 0.75 f(Y, Z)";
+        String s = "g(f(Y, Z), f(X)) = f(Y, Z)";
 
         assertEquals(predicate.map(from, to).toString(), s);
 

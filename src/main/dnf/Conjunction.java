@@ -1,6 +1,8 @@
 package dnf;
 import java.util.List;
 
+import constraintElements.Element;
+
 import predicates.PrimitiveConstraint;
 import predicates.SimilarityPredicate;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class Conjunction {
 
-    List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
+    public List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
 
     public Conjunction(List<PrimitiveConstraint> conjunction){
         this.conjunction = conjunction;
@@ -20,7 +22,7 @@ public class Conjunction {
     }
 
     public boolean Unif(){
-        return transformations.Unif.unif(conjunction);
+        return transformations.Unif.unif(this);
     }
 
     public boolean apprSolvedForm(){
@@ -54,6 +56,16 @@ public class Conjunction {
 
         }
         return true;
+    }
+
+    public boolean containt(Element el){
+        
+        for(PrimitiveConstraint pc : conjunction){
+            if(pc.el1.contains(el) || pc.el2.contains(el)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

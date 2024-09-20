@@ -8,4 +8,5 @@ public interface Element {
     public char getName();
     public Element createCopy();
     default boolean isVariable(){return false;}
+    default boolean isAtomic(){return true;}
 }

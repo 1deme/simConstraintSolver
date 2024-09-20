@@ -34,7 +34,7 @@ public class SimilarityPredicate extends PrimitiveConstraint{
 
     @Override
     public String toString(){
-        return el1.toString() + " ~= " + el2.toString();
+        return el1.toString() + " ~= " + Integer.toString(RelationId) + ", " + Float.toString(CutValue) + " " + el2.toString();
     }
 
     

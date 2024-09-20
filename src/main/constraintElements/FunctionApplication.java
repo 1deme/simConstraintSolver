@@ -45,6 +45,9 @@ public class FunctionApplication implements Term{
         return false;
     }
 
+    @Override
+    public boolean isAtomic(){return false;}
+
     
     @Override
     public char getName() {
