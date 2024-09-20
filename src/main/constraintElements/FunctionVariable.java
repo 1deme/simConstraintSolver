@@ -7,11 +7,6 @@ public class FunctionVariable extends FunctionSymbol {
     }
 
     @Override
-    public String getType() {
-        return "Fv";
-    }
-
-    @Override
     public boolean contains(Element el) {
         return el == this;
     }

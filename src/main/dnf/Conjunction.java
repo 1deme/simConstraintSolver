@@ -45,7 +45,7 @@ public class Conjunction {
 
             for(int j = i + 1; j < conjunction.size(); j++){
                 PrimitiveConstraint next = conjunction.get(j);
-                if(curr.el1.getType() != "Fv" || curr.el1.getType() != "Tv"){
+                if(!curr.el1.isVariable()){
                     return false;
                 }
                 if(curr.el2.contains(curr.el1) || next.el1.contains(curr.el1) || next.el2.contains(curr.el1)){

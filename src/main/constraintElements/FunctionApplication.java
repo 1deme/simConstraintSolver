@@ -28,11 +28,6 @@ public class FunctionApplication implements Term{
     }
 
     @Override
-    public String getType() {
-        return "Fa";
-    }    
-
-    @Override
     public boolean contains(Element el) {
         if(functionSymbol.contains(el)){
             return true;

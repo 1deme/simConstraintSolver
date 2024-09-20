@@ -7,11 +7,6 @@ public class FunctionConstant extends FunctionSymbol {
     }
 
     @Override
-    public String getType() {
-        return "Fc";
-    }
-
-    @Override
     public boolean contains(Element el) {
         return el == this;
     }

@@ -21,11 +21,6 @@ public class TermVariable implements Term {
     }
 
     @Override
-    public String getType() {
-        return "Tv";
-    }
-
-    @Override
     public boolean contains(Element el) {
         return el == this;
     }

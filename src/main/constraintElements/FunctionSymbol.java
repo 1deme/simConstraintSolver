@@ -20,11 +20,6 @@ public class FunctionSymbol implements Element{
     }
 
     @Override
-    public String getType() {
-        return "Fs";
-    }
-
-    @Override
     public boolean contains(Element el) {
         throw new UnsupportedOperationException("Unimplemented method 'contains'");
     }
