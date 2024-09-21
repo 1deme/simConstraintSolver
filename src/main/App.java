@@ -4,54 +4,73 @@ import constraintElements.*;
 import predicates.EqualityPredicate;
 import predicates.PrimitiveConstraint;
 import predicates.SimilarityPredicate;
+import relations.Relation;
+import relations.relationCollection;
 import dnf.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        //FunctionVariable fVarf = new FunctionVariable('F');
-        FunctionVariable fVarg = new FunctionVariable('G');
-        //FunctionVariable fVarh = new FunctionVariable('H');
+        // FunctionVariable F = new FunctionVariable('F');
+        // FunctionVariable G = new FunctionVariable('G');
+        // FunctionVariable H = new FunctionVariable('H');
 
-        //FunctionConstant fConstf = new FunctionConstant('f');
-        FunctionConstant fConstg = new FunctionConstant('g');
-        FunctionConstant fConsth = new FunctionConstant('h');
+        // FunctionConstant f = new FunctionConstant('f');
+        // FunctionConstant g = new FunctionConstant('g');
+        // FunctionConstant h = new FunctionConstant('h');
 
-
-        TermVariable tVarX = new TermVariable('X');
-        TermVariable tVarY = new TermVariable('Y');
-        TermVariable tVarZ = new TermVariable('Z');
-
-        FunctionApplication fa0 = new FunctionApplication(fVarg,  new Term[]{tVarZ});
-
-        //FunctionApplication fa1 = new FunctionApplication(fVarf,  new Term[]{tVarX});
-        //FunctionApplication fa2 = new FunctionApplication(fVarg, new Term[]{fa0});
-        FunctionApplication fa3 = new FunctionApplication(fConstg, new Term[]{ tVarZ});
-
-        FunctionApplication e1 = new FunctionApplication(fConsth, new Term[]{tVarX});
-        FunctionApplication e2 = new FunctionApplication(fConsth, new Term[]{fa0});
-        FunctionApplication e3 = new FunctionApplication(fConsth, new Term[]{fa3});
-        FunctionApplication e4 = new FunctionApplication(fConsth, new Term[]{tVarY});
-
-        //PrimitiveConstraint pc1 = new EqualityPredicate(fVarf, fa1);
-        PrimitiveConstraint pc2 = new EqualityPredicate(e1, e2);
-        PrimitiveConstraint pc3 = new EqualityPredicate(e3, e4);
-
-        // FunctionApplication fx = new FunctionApplication(f, new Term[]{x});
-        // FunctionApplication Fx = new FunctionApplication(F, new Term[]{y, z});
-        // Term[] args = new Term[]{Fx, fx};
-        // FunctionApplication gfxFx = new FunctionApplication(g, args);
-
-        // predicate = new SimilarityPredicate(gfxFx, Fx, 1, 0.75f);
+        // TermVariable X = new TermVariable('X');
+        // TermVariable Y = new TermVariable('Y');
+        // TermVariable Z = new TermVariable('Z');
 
 
-        List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
-        conjunction.add(pc3);
-        conjunction.add(pc2);
-        Conjunction c = new Conjunction(conjunction);
-        System.out.println(c.toString());
-        c.Unif();
-        System.out.println(c.toString());
+        // FunctionApplication fa0 = new FunctionApplication(f,  new Term[]{X});//f(x)
+
+        // EqualityPredicate e = new EqualityPredicate(Z, fa0); // Z = f(x)
+        // EqualityPredicate e1 = new EqualityPredicate(G, Z); // G = Z
+
+        // SimilarityPredicate sim = new SimilarityPredicate(Z, fa0, 0, 0);
+
+        // List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
+        // conjunction.add(sim);
+        // conjunction.add(e);
+        // conjunction.add(e1);
+        // Conjunction c = new Conjunction(conjunction);
+        // c.Unif();
+        // c.Sim();
+        // System.out.println(c.toString());
+
+        FunctionVariable X = new FunctionVariable('F');
+
+        
+        FunctionConstant white_circle = new FunctionConstant('1');
+        FunctionConstant white_ellipse = new FunctionConstant('2');
+        FunctionConstant gray_circle = new FunctionConstant('3');
+        FunctionConstant gray_ellipse = new FunctionConstant('4');
+
+
+        relationCollection.add(white_circle, gray_ellipse, 1, 0.5);
+        relationCollection.add(white_ellipse, gray_circle, 1, 0.5);
+        relationCollection.add(gray_circle, gray_ellipse, 2, 0.7);
+        relationCollection.add(white_ellipse, white_circle, 2, 0.7);
+
+        SimilarityPredicate sp1 = new SimilarityPredicate(X, white_circle, 1, 0.4);
+        SimilarityPredicate sp2 = new SimilarityPredicate(X, gray_ellipse, 2, 0.5);
+
+        List<PrimitiveConstraint> pc = new ArrayList<>();
+        pc.add(sp1);
+        pc.add(sp2);
+        Conjunction c = new Conjunction(pc);
+
+        List<Conjunction> cl = new ArrayList<>();
+        cl.add(c);
+
+        Disjunction d = new Disjunction(cl);
+        
+        System.out.println(d.toString());
+        d.Sim();
+        d.Mix();
+        System.out.println(d.toString());//debug fve mix op
 
     }
 }

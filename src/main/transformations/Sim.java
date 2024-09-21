@@ -49,7 +49,7 @@ public class Sim {
          && relationCollection.lookup(similarityPredicate.el1, similarityPredicate.el2, similarityPredicate.RelationId) >= similarityPredicate.CutValue;
     }
 
-    private static void decSimOp(FunctionApplication f1, FunctionApplication f2, int relId, float cutVal, List<PrimitiveConstraint> conjunction) {
+    private static void decSimOp(FunctionApplication f1, FunctionApplication f2, int relId, double cutVal, List<PrimitiveConstraint> conjunction) {
          for(int i = f1.args.length - 1; i >= 0; i--){
             conjunction.add(new SimilarityPredicate(f1.args[i], f2.args[i], relId, cutVal));
         }

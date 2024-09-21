@@ -131,11 +131,19 @@ public class Mix {
     private static void FVEMixOp(SimilarityPredicate similarityPredicate, List<PrimitiveConstraint> conjunction, Disjunction disjunction, relationCollection relationCollection) {
         List<Element> neighbarhood =  new LinkedList<>();
 
-        for(Relation rel : relationCollection.collection.keySet()){
-            if(rel.relId == similarityPredicate.RelationId && rel.el1 == similarityPredicate.el1 && similarityPredicate.CutValue >= relationCollection.lookup(rel.el1, rel.el2, rel.relId)){
+        for(Relation rel : relations.relationCollection.collection.keySet()){
+            if(
+                rel.relId == similarityPredicate.RelationId 
+                && rel.el1 == similarityPredicate.el2
+                && similarityPredicate.CutValue >= relations.relationCollection.lookup(rel.el1, rel.el2, rel.relId)
+            ){
                 neighbarhood.add(rel.el2);
             }
-            if (rel.relId == similarityPredicate.RelationId && rel.el2 == similarityPredicate.el1 && similarityPredicate.CutValue >= relationCollection.lookup(rel.el2, rel.el1, rel.relId)) {
+            if (
+                rel.relId == similarityPredicate.RelationId 
+                && rel.el2 == similarityPredicate.el2
+                && similarityPredicate.CutValue >= relations.relationCollection.lookup(rel.el2, rel.el1, rel.relId)
+                ) {
                 neighbarhood.add(rel.el1);
             }
         }

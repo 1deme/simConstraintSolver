@@ -14,7 +14,12 @@ public class Unif {
     public static boolean unif(Conjunction conjunction){
         
         for(int i = 0; i < conjunction.conjunction.size(); i++){
+            System.out.println(conjunction.toString());
             PrimitiveConstraint primitiveConstraint = conjunction.conjunction.removeFirst();
+            if(primitiveConstraint instanceof SimilarityPredicate){
+                conjunction.conjunction.addLast(primitiveConstraint);
+                continue;
+            }
             if(delEqCond(primitiveConstraint)){
                 i = -1;
                 continue;

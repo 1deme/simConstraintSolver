@@ -5,9 +5,9 @@ import constraintElements.*;
 public class SimilarityPredicate extends PrimitiveConstraint{
 
     public int RelationId;
-    public float CutValue;
+    public double CutValue;
 
-    public SimilarityPredicate(Element el1, Element el2, int RelationId, float CutValue){
+    public SimilarityPredicate(Element el1, Element el2, int RelationId, double CutValue){
         super(el1, el2);
         this.RelationId = RelationId;
         this.CutValue = CutValue;
@@ -34,7 +34,7 @@ public class SimilarityPredicate extends PrimitiveConstraint{
 
     @Override
     public String toString(){
-        return el1.toString() + " ~= " + Integer.toString(RelationId) + ", " + Float.toString(CutValue) + " " + el2.toString();
+        return el1.toString() + " ~= " + Integer.toString(RelationId) + ", " + Double.toString(CutValue) + " " + el2.toString();
     }
 
     
