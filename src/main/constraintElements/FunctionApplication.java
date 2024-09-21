@@ -13,7 +13,7 @@ public class FunctionApplication implements Term{
     }
 
     @Override
-    public Element map(char from, Element to) {
+    public Element map(Element from, Element to) {
         FunctionSymbol newFunctionSymbol = (FunctionSymbol) functionSymbol.map(from, to);
         Term[] newArgs = new Term[args.length];
         for(int i = 0; i < args.length; i++){
@@ -57,6 +57,8 @@ public class FunctionApplication implements Term{
         }
         return new FunctionApplication(functionSymbol.createCopy(), copy);
     }
+
+    
 
     
 }

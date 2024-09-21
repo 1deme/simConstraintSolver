@@ -23,10 +23,6 @@ public class SimilarityPredicate extends PrimitiveConstraint{
         return this;
     }
 
-    public PrimitiveConstraint map(char from, Element to) {
-        return setEl1(el1.map(from, to)).setEl2(el2.map(from, to));
-    }
-
     @Override
     public SimilarityPredicate createCopy(){
         return new SimilarityPredicate(el1.createCopy(), el2.createCopy(), RelationId, CutValue);

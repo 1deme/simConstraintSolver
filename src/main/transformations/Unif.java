@@ -82,13 +82,13 @@ public class Unif {
         conjunction.replaceAll(x -> {
             if(x instanceof EqualityPredicate)
                 return new EqualityPredicate(
-                    x.el1.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),
-                    x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2)
+                    x.el1.map(primitiveConstraint.el1, primitiveConstraint.el2),
+                    x.el2.map(primitiveConstraint.el1, primitiveConstraint.el2)
                 );
             else{
                 return new SimilarityPredicate(
-                    x.el1.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),
-                    x.el2.map(primitiveConstraint.el1.getName(), primitiveConstraint.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
+                    x.el1.map(primitiveConstraint.el1, primitiveConstraint.el2),
+                    x.el2.map(primitiveConstraint.el1, primitiveConstraint.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
 
             }
         });

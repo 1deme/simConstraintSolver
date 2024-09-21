@@ -13,8 +13,8 @@ public class TermVariable implements Term {
     }
 
     @Override
-    public Element map(char from, Element to){
-        if(this.name == from){
+    public Element map(Element from, Element to){
+        if(this.equals(from)){
             return to;
         }
         return this;
@@ -37,5 +37,5 @@ public class TermVariable implements Term {
 
     @Override
     public boolean isVariable(){return true;}
-    
+   
 }

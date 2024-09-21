@@ -101,13 +101,13 @@ public class Mix {
         {
             if(x instanceof EqualityPredicate)
                 return new EqualityPredicate(
-                    x.el1.map(similarityPredicate.el1.getName(), similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1.getName(), similarityPredicate.el2)
+                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
+                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2)
                 );
             else{
                 return new SimilarityPredicate(
-                    x.el1.map(similarityPredicate.el1.getName(), similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1.getName(), similarityPredicate.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
+                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
+                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
 
             }
         }
@@ -155,13 +155,13 @@ public class Mix {
         {
             if(x instanceof EqualityPredicate)
                 return new EqualityPredicate(
-                    x.el1.map(similarityPredicate.el1.getName(), similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1.getName(), similarityPredicate.el2)
+                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
+                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2)
                 );
             else{
                 return new SimilarityPredicate(
-                    x.el1.map(similarityPredicate.el1.getName(), similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1.getName(), similarityPredicate.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
+                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
+                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
 
             }
         }

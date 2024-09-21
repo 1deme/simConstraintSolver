@@ -19,13 +19,9 @@ public class PrimitiveConstraint {
         return null;
     }
 
-    public PrimitiveConstraint setEl1(Element element){
-        el1 = element;
-        return this;
-    }
-
-    public PrimitiveConstraint setEl2(Element element){
-        el2 = element;
+    public PrimitiveConstraint map(Element from, Element to){
+        el1 = el1.map(from, to);
+        el2 = el2.map(from, to);
         return this;
     }
 

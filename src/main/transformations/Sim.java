@@ -87,8 +87,8 @@ public class Sim {
         {
             if(x instanceof SimilarityPredicate && ((SimilarityPredicate)x).CutValue == similarityPredicate.CutValue && ((SimilarityPredicate)x).RelationId == similarityPredicate.RelationId)
                 return new PrimitiveConstraint(
-                    x.el1.map(similarityPredicate.el1.getName(), similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1.getName(), similarityPredicate.el2)
+                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
+                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2)
                 );
             else{
                 return x;
