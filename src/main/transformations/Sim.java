@@ -100,7 +100,7 @@ public class Sim {
 
     private static boolean conflSimCond(SimilarityPredicate similarityPredicate) {
         return Unif.delEqCond(similarityPredicate) &&
-        relationCollection.lookup(similarityPredicate.el1, similarityPredicate.el2, similarityPredicate.RelationId) < similarityPredicate.CutValue;
+        relations.relationCollection.lookup(similarityPredicate.el1, similarityPredicate.el2, similarityPredicate.RelationId) < similarityPredicate.CutValue;
     }
 
 }

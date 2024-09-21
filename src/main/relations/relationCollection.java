@@ -1,8 +1,6 @@
 package relations;
 import constraintElements.Element;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,9 +8,6 @@ public class relationCollection {
 
     public static List<Relation> collection = new LinkedList<>();
 
-    // public relationCollection() {
-    //     collection = new HashMap<>();
-    // }
 
     public static void add(Element el1, Element el2, int relId, Double value) {
         collection.add(new Relation(el1, el2, relId, value));
