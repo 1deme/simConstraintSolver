@@ -1,6 +1,5 @@
 package relations;
 import constraintElements.Element;
-import java.util.Objects;
 
 public class Relation {
 
@@ -14,11 +13,6 @@ public class Relation {
         this.el2 = el2;
         this.relId = relId;
         this.value = value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(el1, el2, relId);
     }
 
 }

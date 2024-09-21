@@ -46,7 +46,7 @@ public class Sim {
 
     private static boolean delSimCond(SimilarityPredicate similarityPredicate) {
         return Unif.delEqCond(similarityPredicate) 
-         && relationCollection.lookup(similarityPredicate.el1, similarityPredicate.el2, similarityPredicate.RelationId) >= similarityPredicate.CutValue;
+         && relations.relationCollection.lookup(similarityPredicate.el1, similarityPredicate.el2, similarityPredicate.RelationId) >= similarityPredicate.CutValue;
     }
 
     private static void decSimOp(FunctionApplication f1, FunctionApplication f2, int relId, double cutVal, List<PrimitiveConstraint> conjunction) {
