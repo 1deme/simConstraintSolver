@@ -22,22 +22,29 @@ public class Mix {
 
     static relationCollection relationCollection;
 
-    public static boolean mix(Disjunction disjunction, List<PrimitiveConstraint> conjunction){
+    public static int mix(Disjunction disjunction, List<PrimitiveConstraint> conjunction){
         if(conjunction.getFirst() instanceof SimilarityPredicate){
             SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.removeFirst();
 
+            if(similarityPredicate.isSolved){
+                conjunction.addLast(similarityPredicate);
+                return 1;
+            }
+
             if(MismMixCond(similarityPredicate, conjunction) || occMixCond(conjunction, similarityPredicate)){
                 conjunction.clear();
-                return false;
+                return 1;
             }
             if(TVEMixCond(similarityPredicate ,conjunction)){
                 TVEMixop(similarityPredicate, conjunction);
+                return 2;
             }
             if(FVEMixCond(similarityPredicate, conjunction)){
                 FVEMixOp(similarityPredicate, conjunction, disjunction, relationCollection);
+                return 2;
             }
         }
-        return false;
+        return 3;
     }
 
     private static boolean occMixCond(List<PrimitiveConstraint> conjunction, SimilarityPredicate similarityPredicate) {
@@ -118,6 +125,7 @@ public class Mix {
         }
         conjunction.add(new SimilarityPredicate(old.functionSymbol, renamedFunctionApplication.functionSymbol, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
         conjunction.add(new SimilarityPredicate(similarityPredicate.el1, renamedFunctionApplication, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+        conjunction.getLast().isSolved = true;
     }
 
 
@@ -167,7 +175,8 @@ public class Mix {
         }
         );
             
-            newConj.addFirst(new SimilarityPredicate(similarityPredicate.el1, neighbour, similarityPredicate.RelationId, similarityPredicate.CutValue));
+            newConj.add(new SimilarityPredicate(similarityPredicate.el1, neighbour, similarityPredicate.RelationId, similarityPredicate.CutValue));
+            newConj.getLast().isSolved = true;
             disjunction.add(newConj);
         }
 

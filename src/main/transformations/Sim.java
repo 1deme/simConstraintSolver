@@ -12,6 +12,11 @@ public class Sim {
     public static boolean sim(List<PrimitiveConstraint> conjunction){
         
         for(int i = 0; i < conjunction.size(); i++){
+            if(conjunction.getFirst().isSolved){
+                conjunction.addLast(conjunction.removeFirst());
+                continue;
+            }
+
             if(conjunction.getFirst() instanceof SimilarityPredicate){
                 SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.removeFirst();
                 if(delSimCond(similarityPredicate)){

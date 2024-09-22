@@ -28,17 +28,10 @@ public class Disjunction {
     }
 
     public void Mix(){
-        int i = 0;
-        while (i < disjunction.size()) {
-            int memo = disjunction.size();
-            transformations.Mix.mix(this, disjunction.removeFirst().conjunction);
-            if(memo == disjunction.size()){
-                i++;
-            }
-            else{
-                i = 0;
-            }
-        }
+        transformations.Mix.mix(this, disjunction.removeFirst().conjunction);
+        //transformations.Mix.mix(this, disjunction.removeFirst().conjunction);
+
+        
     }
 
     public void solve(){

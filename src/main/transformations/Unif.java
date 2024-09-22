@@ -16,7 +16,7 @@ public class Unif {
         for(int i = 0; i < conjunction.conjunction.size(); i++){
             System.out.println(conjunction.toString());
             PrimitiveConstraint primitiveConstraint = conjunction.conjunction.removeFirst();
-            if(primitiveConstraint instanceof SimilarityPredicate){
+            if(primitiveConstraint instanceof SimilarityPredicate || primitiveConstraint.isSolved){
                 conjunction.conjunction.addLast(primitiveConstraint);
                 continue;
             }

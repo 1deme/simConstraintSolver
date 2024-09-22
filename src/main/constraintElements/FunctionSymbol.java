@@ -21,7 +21,7 @@ public class FunctionSymbol implements Element{
 
     @Override
     public boolean contains(Element el) {
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+        return el == this;
     }
 
     @Override

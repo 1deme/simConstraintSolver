@@ -1,5 +1,7 @@
 package dnf;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import constraintElements.Element;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 
 public class Conjunction {
 
-    public List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
+    public List<PrimitiveConstraint> conjunction;
 
     public Conjunction(List<PrimitiveConstraint> conjunction){
         this.conjunction = conjunction;
@@ -23,6 +25,13 @@ public class Conjunction {
 
     public boolean Unif(){
         return transformations.Unif.unif(this);
+    }
+
+    public void map(Element to, Element from){
+        for (PrimitiveConstraint pc : conjunction) {
+           pc.map(from, to);
+        } 
+        System.out.println(toString());
     }
 
     public boolean apprSolvedForm(){
