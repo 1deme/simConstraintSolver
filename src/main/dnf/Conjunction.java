@@ -19,13 +19,6 @@ public class Conjunction {
         this.conjunction = conjunction;
     }
 
-    public void map(Element to, Element from){
-        for (PrimitiveConstraint pc : conjunction) {
-           pc.map(from, to);
-        } 
-        System.out.println(toString());
-    }
-
     public boolean Sim(){
         return transformations.Sim.sim(conjunction);
     }
@@ -34,7 +27,9 @@ public class Conjunction {
         return transformations.Unif.unif(this);
     }
 
-    
+    public void map(Element from, Element to){
+        conjunction.stream().map(x -> x.map(from, to)).collect(Collectors.toList());
+    }
 
     public boolean apprSolvedForm(){
 

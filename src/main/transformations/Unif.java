@@ -35,7 +35,7 @@ public class Unif {
                 continue;
             }
             if(elimEqCond(primitiveConstraint, conjunction)){
-                elimEqOp(primitiveConstraint, conjunction.conjunction);
+                elimEqOp(primitiveConstraint, conjunction);
                 i = -1;
                 continue;
             }
@@ -78,21 +78,9 @@ public class Unif {
         return !primitiveConstraint.el2.contains(primitiveConstraint.el1) && conjunction.containt(primitiveConstraint.el1);
     }
 
-    public static void elimEqOp(PrimitiveConstraint primitiveConstraint, List<PrimitiveConstraint> conjunction){
-        conjunction.replaceAll(x -> {
-            if(x instanceof EqualityPredicate)
-                return new EqualityPredicate(
-                    x.el1.map(primitiveConstraint.el1, primitiveConstraint.el2),
-                    x.el2.map(primitiveConstraint.el1, primitiveConstraint.el2)
-                );
-            else{
-                return new SimilarityPredicate(
-                    x.el1.map(primitiveConstraint.el1, primitiveConstraint.el2),
-                    x.el2.map(primitiveConstraint.el1, primitiveConstraint.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
-
-            }
-        });
-        conjunction.addLast(primitiveConstraint);
+    public static void elimEqOp(PrimitiveConstraint primitiveConstraint, Conjunction conjunction){
+        conjunction.map(primitiveConstraint.el1, primitiveConstraint.el2);
+        conjunction.conjunction.addLast(primitiveConstraint);
     }
 
     public static boolean conflEqCond(PrimitiveConstraint primitiveConstraint){

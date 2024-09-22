@@ -22,25 +22,25 @@ public class Mix {
 
     static relationCollection relationCollection;
 
-    public static int mix(Disjunction disjunction, List<PrimitiveConstraint> conjunction){
-        if(conjunction.getFirst() instanceof SimilarityPredicate){
-            SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.removeFirst();
+    public static int mix(Disjunction disjunction, Conjunction conjunction){
+        if(conjunction.conjunction.getFirst() instanceof SimilarityPredicate){
+            SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.conjunction.removeFirst();
 
             if(similarityPredicate.isSolved){
-                conjunction.addLast(similarityPredicate);
+                conjunction.conjunction.addLast(similarityPredicate);
                 return 1;
             }
 
-            if(MismMixCond(similarityPredicate, conjunction) || occMixCond(conjunction, similarityPredicate)){
-                conjunction.clear();
+            if(MismMixCond(similarityPredicate, conjunction.conjunction) || occMixCond(conjunction.conjunction, similarityPredicate)){
+                conjunction.conjunction.clear();
                 return 1;
             }
-            if(TVEMixCond(similarityPredicate ,conjunction)){
+            if(TVEMixCond(similarityPredicate ,conjunction.conjunction)){
                 TVEMixop(similarityPredicate, conjunction);
                 return 2;
             }
-            if(FVEMixCond(similarityPredicate, conjunction)){
-                FVEMixOp(similarityPredicate, conjunction, disjunction, relationCollection);
+            if(FVEMixCond(similarityPredicate, conjunction.conjunction)){
+                FVEMixOp(similarityPredicate, conjunction.conjunction, disjunction, relationCollection);
                 return 2;
             }
         }
@@ -101,31 +101,18 @@ public class Mix {
         return hasCycleDFS(similarityPredicate.el1, graph, visited, recStack);
     }
 
-    private static void TVEMixop(PrimitiveConstraint similarityPredicate, List<PrimitiveConstraint> conjunction) {
+    private static void TVEMixop(PrimitiveConstraint similarityPredicate, Conjunction conjunction) {
         FunctionApplication old = (FunctionApplication) similarityPredicate.el2;
         FunctionApplication renamedFunctionApplication = (FunctionApplication) renamingFunction((Term) old);
-        conjunction.replaceAll(x -> 
-        {
-            if(x instanceof EqualityPredicate)
-                return new EqualityPredicate(
-                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2)
-                );
-            else{
-                return new SimilarityPredicate(
-                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
-
-            }
-        }
-        );
+        
+        conjunction.map(similarityPredicate.el1, similarityPredicate.el2);
 
         for(int i = 0; i < renamedFunctionApplication.args.length; i++){
-            conjunction.add(new SimilarityPredicate(renamedFunctionApplication.args[i], old.args[i], ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+            conjunction.conjunction.add(new SimilarityPredicate(renamedFunctionApplication.args[i], old.args[i], ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
         }
-        conjunction.add(new SimilarityPredicate(old.functionSymbol, renamedFunctionApplication.functionSymbol, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
-        conjunction.add(new SimilarityPredicate(similarityPredicate.el1, renamedFunctionApplication, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
-        conjunction.getLast().isSolved = true;
+        conjunction.conjunction.add(new SimilarityPredicate(old.functionSymbol, renamedFunctionApplication.functionSymbol, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+        conjunction.conjunction.add(new SimilarityPredicate(similarityPredicate.el1, renamedFunctionApplication, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+        conjunction.conjunction.getLast().isSolved = true;
     }
 
 
@@ -158,23 +145,9 @@ public class Mix {
 
         for(Element neighbour : neighbarhood){
             List<PrimitiveConstraint> newConj = conjunction.stream().map(x -> x.createCopy()).collect(Collectors.toList());
+            Conjunction c = new Conjunction(newConj);
+            c.map(similarityPredicate.el1, similarityPredicate.el2);
 
-            newConj.replaceAll(x -> 
-        {
-            if(x instanceof EqualityPredicate)
-                return new EqualityPredicate(
-                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2)
-                );
-            else{
-                return new SimilarityPredicate(
-                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2),( (SimilarityPredicate) x).RelationId , (( SimilarityPredicate) x).CutValue);
-
-            }
-        }
-        );
-            
             newConj.add(new SimilarityPredicate(similarityPredicate.el1, neighbour, similarityPredicate.RelationId, similarityPredicate.CutValue));
             newConj.getLast().isSolved = true;
             disjunction.add(newConj);

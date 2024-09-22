@@ -15,6 +15,10 @@ public class Disjunction {
         disjunction.add(new Conjunction(pc));
     }
 
+    public void add(Conjunction c){
+        disjunction.add(c);
+    }
+
     public boolean apprSolvedForm(){
         return disjunction.stream().allMatch(x -> x.apprSolvedForm());
     }
@@ -28,7 +32,7 @@ public class Disjunction {
     }
 
     public void Mix(){
-        transformations.Mix.mix(this, disjunction.removeFirst().conjunction);
+        transformations.Mix.mix(this, disjunction.removeFirst());
         //transformations.Mix.mix(this, disjunction.removeFirst().conjunction);
 
         
