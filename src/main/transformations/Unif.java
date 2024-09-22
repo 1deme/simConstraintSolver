@@ -13,11 +13,11 @@ public class Unif {
 
     public static boolean unif(Conjunction conjunction){
         
-        for(int i = 0; i < conjunction.conjunction.size(); i++){
+        for(int i = 0; i < conjunction.constraints.size(); i++){
             System.out.println(conjunction.toString());
-            PrimitiveConstraint primitiveConstraint = conjunction.conjunction.removeFirst();
+            PrimitiveConstraint primitiveConstraint = conjunction.constraints.removeFirst();
             if(primitiveConstraint instanceof SimilarityPredicate || primitiveConstraint.isSolved){
-                conjunction.conjunction.addLast(primitiveConstraint);
+                conjunction.constraints.addLast(primitiveConstraint);
                 continue;
             }
             if(delEqCond(primitiveConstraint)){
@@ -25,12 +25,12 @@ public class Unif {
                 continue;
             }
             if(decEqCond(primitiveConstraint)){
-                decEqOp((FunctionApplication) primitiveConstraint.el1, (FunctionApplication) primitiveConstraint.el2, conjunction.conjunction);
+                decEqOp((FunctionApplication) primitiveConstraint.el1, (FunctionApplication) primitiveConstraint.el2, conjunction.constraints);
                 i = -1;
                 continue;
             }
             if(oriEqCond(primitiveConstraint)){
-                oriEqOp(primitiveConstraint, conjunction.conjunction);
+                oriEqOp(primitiveConstraint, conjunction.constraints);
                 i = -1;
                 continue;
             }
@@ -40,10 +40,10 @@ public class Unif {
                 continue;
             }
             if(conflEqCond(primitiveConstraint) || mismEqCond(primitiveConstraint) || occEqCond(primitiveConstraint)){
-                conjunction.conjunction.clear();
+                conjunction.constraints.clear();
                 return false;
             }
-            conjunction.conjunction.addLast(primitiveConstraint);
+            conjunction.constraints.addLast(primitiveConstraint);
         }
         return true;
     }
@@ -80,7 +80,7 @@ public class Unif {
 
     public static void elimEqOp(PrimitiveConstraint primitiveConstraint, Conjunction conjunction){
         conjunction.map(primitiveConstraint.el1, primitiveConstraint.el2);
-        conjunction.conjunction.addLast(primitiveConstraint);
+        conjunction.constraints.addLast(primitiveConstraint);
     }
 
     public static boolean conflEqCond(PrimitiveConstraint primitiveConstraint){

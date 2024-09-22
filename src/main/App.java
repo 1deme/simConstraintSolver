@@ -39,8 +39,8 @@ public class App {
         // for (PrimitiveConstraint pcc : c.conjunction) {
         //     pcc.map(X, gray_ellipse);
         //  } 
-        //c.map(X, gray_ellipse);
-        c.conjunction.stream().map(x -> x.map(X, gray_ellipse)).collect(Collectors.toList());
+        c.map(X, gray_ellipse);
+//        c.constraints.stream().map(x -> x.map(X, gray_ellipse)).collect(Collectors.toList());
 
         System.out.println(c.toString());
 

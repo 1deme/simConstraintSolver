@@ -5,34 +5,34 @@ import predicates.PrimitiveConstraint;
 
 public class Disjunction {
 
-    public List<Conjunction> disjunction;
+    public List<Conjunction> conjunctions;
 
     public Disjunction(List<Conjunction> disjunction){
-        this.disjunction = disjunction;
+        this.conjunctions = disjunction;
     }
 
     public void add(List<PrimitiveConstraint> pc){
-        disjunction.add(new Conjunction(pc));
+        conjunctions.add(new Conjunction(pc));
     }
 
     public void add(Conjunction c){
-        disjunction.add(c);
+        conjunctions.add(c);
     }
 
     public boolean apprSolvedForm(){
-        return disjunction.stream().allMatch(x -> x.apprSolvedForm());
+        return conjunctions.stream().allMatch(x -> x.apprSolvedForm());
     }
 
     public void Sim(){
-        disjunction.removeIf(consj -> !consj.Sim());
+        conjunctions.removeIf(consj -> !consj.Sim());
     }
 
     public void Unif(){
-        disjunction.removeIf(consj -> !consj.Unif());
+        conjunctions.removeIf(consj -> !consj.Unif());
     }
 
     public void Mix(){
-        transformations.Mix.mix(this, disjunction.removeFirst());
+        transformations.Mix.mix(this, conjunctions.removeFirst());
         //transformations.Mix.mix(this, disjunction.removeFirst().conjunction);
 
         
@@ -43,13 +43,13 @@ public class Disjunction {
         while (!apprSolvedForm()) {
 
             this.Unif();
-            if(disjunction.size() == 0) return;
+            if(conjunctions.size() == 0) return;
             
             this.Sim();
-            if(disjunction.size() == 0) return;
+            if(conjunctions.size() == 0) return;
             
             this.Mix();
-            if(disjunction.size() == 0) return;
+            if(conjunctions.size() == 0) return;
             
         }
     }
@@ -57,9 +57,9 @@ public class Disjunction {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < disjunction.size(); i++) {
-            sb.append(disjunction.get(i));
-            if (i < disjunction.size() - 1) {
+        for (int i = 0; i < conjunctions.size(); i++) {
+            sb.append(conjunctions.get(i));
+            if (i < conjunctions.size() - 1) {
                 sb.append(" ∨ "); 
             }
         }

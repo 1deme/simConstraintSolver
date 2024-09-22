@@ -23,24 +23,24 @@ public class Mix {
     static relationCollection relationCollection;
 
     public static int mix(Disjunction disjunction, Conjunction conjunction){
-        if(conjunction.conjunction.getFirst() instanceof SimilarityPredicate){
-            SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.conjunction.removeFirst();
+        if(conjunction.constraints.getFirst() instanceof SimilarityPredicate){
+            SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.constraints.removeFirst();
 
             if(similarityPredicate.isSolved){
-                conjunction.conjunction.addLast(similarityPredicate);
+                conjunction.constraints.addLast(similarityPredicate);
                 return 1;
             }
 
-            if(MismMixCond(similarityPredicate, conjunction.conjunction) || occMixCond(conjunction.conjunction, similarityPredicate)){
-                conjunction.conjunction.clear();
+            if(MismMixCond(similarityPredicate, conjunction.constraints) || occMixCond(conjunction.constraints, similarityPredicate)){
+                conjunction.constraints.clear();
                 return 1;
             }
-            if(TVEMixCond(similarityPredicate ,conjunction.conjunction)){
+            if(TVEMixCond(similarityPredicate ,conjunction.constraints)){
                 TVEMixop(similarityPredicate, conjunction);
                 return 2;
             }
-            if(FVEMixCond(similarityPredicate, conjunction.conjunction)){
-                FVEMixOp(similarityPredicate, conjunction.conjunction, disjunction, relationCollection);
+            if(FVEMixCond(similarityPredicate, conjunction.constraints)){
+                FVEMixOp(similarityPredicate, conjunction.constraints, disjunction, relationCollection);
                 return 2;
             }
         }
@@ -108,11 +108,11 @@ public class Mix {
         conjunction.map(similarityPredicate.el1, similarityPredicate.el2);
 
         for(int i = 0; i < renamedFunctionApplication.args.length; i++){
-            conjunction.conjunction.add(new SimilarityPredicate(renamedFunctionApplication.args[i], old.args[i], ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+            conjunction.constraints.add(new SimilarityPredicate(renamedFunctionApplication.args[i], old.args[i], ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
         }
-        conjunction.conjunction.add(new SimilarityPredicate(old.functionSymbol, renamedFunctionApplication.functionSymbol, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
-        conjunction.conjunction.add(new SimilarityPredicate(similarityPredicate.el1, renamedFunctionApplication, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
-        conjunction.conjunction.getLast().isSolved = true;
+        conjunction.constraints.add(new SimilarityPredicate(old.functionSymbol, renamedFunctionApplication.functionSymbol, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+        conjunction.constraints.add(new SimilarityPredicate(similarityPredicate.el1, renamedFunctionApplication, ( (SimilarityPredicate) similarityPredicate).RelationId, ( (SimilarityPredicate) similarityPredicate).CutValue));
+        conjunction.constraints.getLast().isSolved = true;
     }
 
 

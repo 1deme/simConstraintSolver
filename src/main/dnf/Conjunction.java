@@ -13,14 +13,14 @@ import java.util.ArrayList;
 
 public class Conjunction {
 
-    public List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
+    public List<PrimitiveConstraint> constraints = new ArrayList<PrimitiveConstraint>();
 
     public Conjunction(List<PrimitiveConstraint> conjunction){
-        this.conjunction = conjunction;
+        this.constraints = conjunction;
     }
 
     public boolean Sim(){
-        return transformations.Sim.sim(conjunction);
+        return transformations.Sim.sim(constraints);
     }
 
     public boolean Unif(){
@@ -28,17 +28,17 @@ public class Conjunction {
     }
 
     public void map(Element from, Element to){
-        conjunction.stream().map(x -> x.map(from, to)).collect(Collectors.toList());
+        constraints.stream().map(x -> x.map(from, to)).collect(Collectors.toList());
     }
 
     public boolean apprSolvedForm(){
 
-        for(int i = 0; i < conjunction.size(); i++){
-            PrimitiveConstraint curr = conjunction.get(i);
+        for(int i = 0; i < constraints.size(); i++){
+            PrimitiveConstraint curr = constraints.get(i);
 
             if(curr instanceof SimilarityPredicate && curr.el1.isVariable() && curr.el2.isVariable() ){
-                for(int j = 0; j < conjunction.size(); j++){
-                    PrimitiveConstraint other = conjunction.get(j);
+                for(int j = 0; j < constraints.size(); j++){
+                    PrimitiveConstraint other = constraints.get(j);
                     if(curr instanceof SimilarityPredicate && curr.el1.isVariable() && curr.el2.isVariable() ){
                         continue;
                     }
@@ -49,8 +49,8 @@ public class Conjunction {
                 continue;
             }
 
-            for(int j = i + 1; j < conjunction.size(); j++){
-                PrimitiveConstraint next = conjunction.get(j);
+            for(int j = i + 1; j < constraints.size(); j++){
+                PrimitiveConstraint next = constraints.get(j);
                 if(!curr.el1.isVariable()){
                     return false;
                 }
@@ -66,7 +66,7 @@ public class Conjunction {
 
     public boolean containt(Element el){
         
-        for(PrimitiveConstraint pc : conjunction){
+        for(PrimitiveConstraint pc : constraints){
             if(pc.el1.contains(el) || pc.el2.contains(el)){
                 return true;
             }
@@ -77,9 +77,9 @@ public class Conjunction {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < conjunction.size(); i++) {
-            sb.append(conjunction.get(i));
-            if (i < conjunction.size() - 1) {
+        for (int i = 0; i < constraints.size(); i++) {
+            sb.append(constraints.get(i));
+            if (i < constraints.size() - 1) {
                 sb.append(" ∧ "); 
             }
         }
