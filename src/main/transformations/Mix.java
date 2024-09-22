@@ -1,7 +1,5 @@
 package transformations;
-import predicates.EqualityPredicate;
-import predicates.PrimitiveConstraint;
-import predicates.SimilarityPredicate;
+import predicates.*;
 import relations.Relation;
 import relations.relationCollection;
 

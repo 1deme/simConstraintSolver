@@ -1,6 +1,9 @@
 package transformations;
 import java.util.List;
+import java.util.function.Predicate;
+
 import constraintElements.FunctionApplication;
+import dnf.Conjunction;
 import predicates.PrimitiveConstraint;
 import predicates.SimilarityPredicate;
 import relations.relationCollection;
@@ -9,40 +12,40 @@ public class Sim {
 
     static relationCollection relationCollection = new relationCollection();
 
-    public static boolean sim(List<PrimitiveConstraint> conjunction){
+    public static boolean sim(Conjunction conjunction){
         
-        for(int i = 0; i < conjunction.size(); i++){
-            if(conjunction.getFirst().isSolved){
-                conjunction.addLast(conjunction.removeFirst());
+        for(int i = 0; i < conjunction.constraints.size(); i++){
+            if(conjunction.constraints.getFirst().isSolved){
+                conjunction.constraints.addLast(conjunction.constraints.removeFirst());
                 continue;
             }
 
-            if(conjunction.getFirst() instanceof SimilarityPredicate){
-                SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.removeFirst();
+            if(conjunction.constraints.getFirst() instanceof SimilarityPredicate){
+                SimilarityPredicate similarityPredicate = (SimilarityPredicate) conjunction.constraints.removeFirst();
                 if(delSimCond(similarityPredicate)){
                     i = -1;
                     continue;
                 }
                 if(Unif.decEqCond(similarityPredicate)){
-                    decSimOp((FunctionApplication) similarityPredicate.el1, (FunctionApplication) similarityPredicate.el2, similarityPredicate.RelationId, similarityPredicate.CutValue, conjunction);
+                    decSimOp((FunctionApplication) similarityPredicate.el1, (FunctionApplication) similarityPredicate.el2, similarityPredicate.RelationId, similarityPredicate.CutValue, conjunction.constraints);
                     i = -1;
                     continue;
                 }
                 if(Unif.oriEqCond(similarityPredicate)){
-                    oriSimOp(similarityPredicate, conjunction);
+                    oriSimOp(similarityPredicate, conjunction.constraints);
                     i = -1;
                     continue;
                 }
-                if(elimSimCond(similarityPredicate, conjunction)){
+                if(elimSimCond(similarityPredicate, conjunction.constraints)){
                     elimSimOp(similarityPredicate, conjunction);
                     i = -1;
                     continue;
                 }
                 if(conflSimCond(similarityPredicate) || Unif.mismEqCond(similarityPredicate) || Unif.occEqCond(similarityPredicate)){
-                    conjunction.clear();
+                    conjunction.constraints.clear();
                     return false;
                 }
-                conjunction.addLast(similarityPredicate);
+                conjunction.constraints.addLast(similarityPredicate);
             }
     
         }
@@ -87,20 +90,10 @@ public class Sim {
         return false;
     }
     
-    private static void elimSimOp(SimilarityPredicate similarityPredicate, List<PrimitiveConstraint> conjunction) {
-        conjunction.replaceAll(x -> 
-        {
-            if(x instanceof SimilarityPredicate && ((SimilarityPredicate)x).CutValue == similarityPredicate.CutValue && ((SimilarityPredicate)x).RelationId == similarityPredicate.RelationId)
-                return new PrimitiveConstraint(
-                    x.el1.map(similarityPredicate.el1, similarityPredicate.el2),
-                    x.el2.map(similarityPredicate.el1, similarityPredicate.el2)
-                );
-            else{
-                return x;
-            }
-        }
-        );
-        conjunction.addLast(similarityPredicate);
+    private static void elimSimOp(SimilarityPredicate similarityPredicate, Conjunction conjunction) {
+        Predicate<PrimitiveConstraint> p = x -> x instanceof SimilarityPredicate && ((SimilarityPredicate)x).CutValue == similarityPredicate.CutValue && ((SimilarityPredicate)x).RelationId == similarityPredicate.RelationId;
+        conjunction.map(similarityPredicate.el1, similarityPredicate.el2, p);
+        conjunction.constraints.addLast(similarityPredicate);
     }
 
     private static boolean conflSimCond(SimilarityPredicate similarityPredicate) {

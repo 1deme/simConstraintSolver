@@ -1,6 +1,6 @@
 package dnf;
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import constraintElements.Element;
@@ -20,7 +20,7 @@ public class Conjunction {
     }
 
     public boolean Sim(){
-        return transformations.Sim.sim(constraints);
+        return transformations.Sim.sim(this);
     }
 
     public boolean Unif(){
@@ -29,6 +29,18 @@ public class Conjunction {
 
     public void map(Element from, Element to){
         constraints.stream().map(x -> x.map(from, to)).collect(Collectors.toList());
+    }
+
+    public void map(Element from, Element to, Predicate<PrimitiveConstraint> cond){
+        
+        constraints.stream().map(x -> {
+            if(cond.test(x)){
+                return x.map(from, to);
+            }
+            else{
+                return x;
+            }
+        } ).collect(Collectors.toList());
     }
 
     public boolean apprSolvedForm(){
