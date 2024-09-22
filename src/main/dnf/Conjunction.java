@@ -13,10 +13,17 @@ import java.util.ArrayList;
 
 public class Conjunction {
 
-    public List<PrimitiveConstraint> conjunction;
+    public List<PrimitiveConstraint> conjunction = new ArrayList<PrimitiveConstraint>();
 
     public Conjunction(List<PrimitiveConstraint> conjunction){
         this.conjunction = conjunction;
+    }
+
+    public void map(Element to, Element from){
+        for (PrimitiveConstraint pc : conjunction) {
+           pc.map(from, to);
+        } 
+        System.out.println(toString());
     }
 
     public boolean Sim(){
@@ -27,12 +34,7 @@ public class Conjunction {
         return transformations.Unif.unif(this);
     }
 
-    public void map(Element to, Element from){
-        for (PrimitiveConstraint pc : conjunction) {
-           pc.map(from, to);
-        } 
-        System.out.println(toString());
-    }
+    
 
     public boolean apprSolvedForm(){
 
